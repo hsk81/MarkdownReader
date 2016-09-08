@@ -1,0 +1,53 @@
+@import url("assets/css/reader-base.css");
+
+/**
+ * Content:
+ */
+
+#content h2 {
+    display: none !important;
+}
+
+#content h2 + p:not(:empty) {
+    border: 1px double dimgray;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    padding: 0.75em 0.75em 0.5em 0.75em;
+    opacity: 0.95;
+}
+
+#content h3 {
+    padding-bottom: 0.25em;
+}
+
+
+#content table {
+    width: 100%;
+}
+
+#content p {
+    padding: 0 1.25em 1em 1.25em;
+    text-align: justify;
+}
+
+#content img {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+}
+
+/**
+ * Pager:
+ */
+
+#pager {
+    display: initial !important;
+}
+
+/**
+ * Table of contents:
+ */
+
+#md-toc .md-toc-h1 {
+    font-weight: bold;
+}

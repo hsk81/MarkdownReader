@@ -1,0 +1,24 @@
+{
+    "languages": {
+        "en": "en", "de": "de"
+    },
+
+    "scroll1": {
+        "mouseWheel": true,
+        "scrollbars": false
+    },
+
+    "scroll2": {
+        "fadeScrollbars": false,
+        "interactiveScrollbars": true,
+        "mouseWheel": true,
+        "scrollbars": "custom",
+        "shrinkScrollbars": "scale"
+    },
+
+    "tocFlag": true,
+    "showBack": true,
+    "showFront": true,
+    "urlCss": "assets/css/reader.css",
+    "urlMd": "assets/md/${LANGUAGE}/index.md"
+}

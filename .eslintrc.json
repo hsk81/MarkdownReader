@@ -1,0 +1,29 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "bundle": false,
+    "dizmo": false,
+    "DizmoElements": false,
+    "DizmoHelper": false,
+    "i18n": false,
+    "Reflect": false,
+    "showBack": false,
+    "showFront": false,
+    "viewer": false
+  },
+  "rules": {
+    "no-console": [
+      0
+    ],
+    "no-cond-assign": [
+      0
+    ],
+    "no-func-assign": [
+      0
+    ]
+  }
+}
