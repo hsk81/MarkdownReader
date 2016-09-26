@@ -35,6 +35,14 @@ export let i18n = window.i18n;
 ///////////////////////////////////////////////////////////////////////////////
 
 export interface IWindow extends IBaseWindow {
+    marked:MarkedStatic;
+}
+
+export let marked = window.marked;
+
+///////////////////////////////////////////////////////////////////////////////
+
+export interface IWindow extends IBaseWindow {
     $:JQueryStatic;
 }
 

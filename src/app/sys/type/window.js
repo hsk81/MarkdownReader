@@ -6,6 +6,7 @@ window.global = function (key, value) {
     return ((value === undefined) ? window[key] : window[key] = value);
 };
 exports.i18n = window.i18n;
+exports.marked = window.marked;
 exports.$ = window.$;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = window;

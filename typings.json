@@ -1,7 +1,7 @@
 {
   "globalDependencies": {
     "i18next": "registry:dt/i18next#2.3.4+20160709062428",
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008"
   },
   "resolution": "src/dts"
 }
