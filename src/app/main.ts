@@ -1,3 +1,4 @@
+import viewer from './sys/type/viewer';
 import window from './sys/type/window';
 import dizmo from './sys/type/dizmo';
 
@@ -10,6 +11,8 @@ import {trace} from './sys/util/trace';
 import {Dizmo} from './dizmo';
 import {Editor} from './editor';
 
+export declare let Colors:any;
+
 @trace
 @named('Main')
 export class Main {
@@ -18,12 +21,80 @@ export class Main {
     private _scroll2:any;
 
     public constructor() {
+        this.members();
         this.events();
     }
 
+    private members() {
+        if (this.urlMd) {
+            $('#url-md').val(this.urlMd);
+        }
+        if (this.urlCss) {
+            $('#url-css').val(this.urlCss);
+        }
+        if (this.extraCss) {
+            this.editor.value = this.extraCss;
+        }
+    }
+
     private events() {
-        this.$done
-            .on('click', this.onDoneClick.bind(this));
+        $('#back').find('.done').on(
+            'click', this.onDoneClick.bind(this));
+        viewer.on(
+            'settings/language', this.onLanguage.bind(this));
+        dizmo.on(
+            'settings/framecolor', this.onFrameColor.bind(this));
+        dizmo.onShowBack(
+            this.onShowBack.bind(this));
+        dizmo.onShowFront(
+            this.onShowFront.bind(this));
+
+        this.onShowFront(null);
+    }
+
+    private onLanguage() {
+        this.onShowFront({no_resize: true});
+    }
+
+    private onFrameColor(path:string, value:string) {
+        $('#md-toc').css(
+            'color', this.getAdaptiveColor(value));
+        $('#content').find(':header,p').css(
+            'color', this.getAdaptiveColor(value));
+        $('#pager-idx').css(
+            'color', this.getAdaptiveColor(value));
+        $('#pager-lhs').css(
+            '-webkit-filter', this.getAdaptiveInversion(value));
+        $('#pager-rhs').css(
+            '-webkit-filter', this.getAdaptiveInversion(value));
+    }
+
+    private getAdaptiveColor(hex_color:string):string {
+        try {
+            return (Colors.hex2bright(hex_color.slice(0, 7))) ?
+                '#3d3d3d' : '#e6e6e6';
+        } catch (ex) {
+            console.error(ex);
+        }
+        return '#3d3d3d';
+    }
+
+    private getAdaptiveInversion(hex_color: string) {
+        try {
+            return (Colors.hex2bright(hex_color.slice(0, 7))) ?
+                'invert(0.0)' : 'invert(1.0)';
+        } catch (ex) {
+            console.error(ex);
+        }
+        return 'invert(0.0)';
+    }
+
+    private onShowBack(opts:any) {
+        // TODO: implement!
+    }
+
+    private onShowFront(opts:any) {
+        // TODO: implement!
     }
 
     private onDoneClick() {
@@ -171,14 +242,6 @@ export class Main {
                 return marked(mdValue, {renderer: renderer});
             }
         };
-    }
-
-    private get $back() {
-        return $('#back');
-    }
-
-    private get $done() {
-        return this.$back.find('.done');
     }
 }
 

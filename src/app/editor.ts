@@ -11,6 +11,10 @@ export class Editor {
     private events() {
         // TODO: implement!
     }
+
+    public set value(value:string) {
+        // TODO: implement!
+    }
 }
 
 export default Editor;

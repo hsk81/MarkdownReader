@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var viewer_1 = require('./sys/type/viewer');
 var window_1 = require('./sys/type/window');
 var dizmo_1 = require('./sys/type/dizmo');
 var window_2 = require('./sys/type/window');
@@ -18,11 +19,63 @@ var editor_1 = require('./editor');
 var Main = (function () {
     function Main() {
         this._editor = new editor_1.Editor();
+        this.members();
         this.events();
     }
+    Main.prototype.members = function () {
+        if (this.urlMd) {
+            window_3.$('#url-md').val(this.urlMd);
+        }
+        if (this.urlCss) {
+            window_3.$('#url-css').val(this.urlCss);
+        }
+        if (this.extraCss) {
+            this.editor.value = this.extraCss;
+        }
+    };
     Main.prototype.events = function () {
-        this.$done
-            .on('click', this.onDoneClick.bind(this));
+        window_3.$('#back').find('.done').on('click', this.onDoneClick.bind(this));
+        viewer_1.default.on('settings/language', this.onLanguage.bind(this));
+        dizmo_1.default.on('settings/framecolor', this.onFrameColor.bind(this));
+        dizmo_1.default.onShowBack(this.onShowBack.bind(this));
+        dizmo_1.default.onShowFront(this.onShowFront.bind(this));
+        this.onShowFront(null);
+    };
+    Main.prototype.onLanguage = function () {
+        this.onShowFront({ no_resize: true });
+    };
+    Main.prototype.onFrameColor = function (path, value) {
+        window_3.$('#md-toc').css('color', this.getAdaptiveColor(value));
+        window_3.$('#content').find(':header,p').css('color', this.getAdaptiveColor(value));
+        window_3.$('#pager-idx').css('color', this.getAdaptiveColor(value));
+        window_3.$('#pager-lhs').css('-webkit-filter', this.getAdaptiveInversion(value));
+        window_3.$('#pager-rhs').css('-webkit-filter', this.getAdaptiveInversion(value));
+    };
+    Main.prototype.getAdaptiveColor = function (hex_color) {
+        try {
+            return (exports.Colors.hex2bright(hex_color.slice(0, 7))) ?
+                '#3d3d3d' : '#e6e6e6';
+        }
+        catch (ex) {
+            console.error(ex);
+        }
+        return '#3d3d3d';
+    };
+    Main.prototype.getAdaptiveInversion = function (hex_color) {
+        try {
+            return (exports.Colors.hex2bright(hex_color.slice(0, 7))) ?
+                'invert(0.0)' : 'invert(1.0)';
+        }
+        catch (ex) {
+            console.error(ex);
+        }
+        return 'invert(0.0)';
+    };
+    Main.prototype.onShowBack = function (opts) {
+        // TODO: implement!
+    };
+    Main.prototype.onShowFront = function (opts) {
+        // TODO: implement!
     };
     Main.prototype.onDoneClick = function () {
         dizmo_1.default.showFront();
@@ -192,20 +245,6 @@ var Main = (function () {
                     return window_2.marked(mdValue, { renderer: renderer });
                 }
             };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Main.prototype, "$back", {
-        get: function () {
-            return window_3.$('#back');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Main.prototype, "$done", {
-        get: function () {
-            return this.$back.find('.done');
         },
         enumerable: true,
         configurable: true
