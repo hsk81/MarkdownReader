@@ -8,13 +8,22 @@ export class Editor {
         this.events();
     }
 
+    public refresh() {
+        // TODO: implement!
+    }
+
     private events() {
         // TODO: implement!
+    }
+
+    public get value():string {
+        return ''; // TODO: implement!
     }
 
     public set value(value:string) {
         // TODO: implement!
     }
+
 }
 
 export default Editor;

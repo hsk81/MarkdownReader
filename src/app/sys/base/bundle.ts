@@ -35,6 +35,7 @@ export interface IBaseBundle {
 
 export interface IBaseBundle {
     getDizmos:() => Array<IBaseDizmo>;
+    instantiateDizmo:() => void;
     uninstall:() => void;
 }
 
