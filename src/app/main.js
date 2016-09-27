@@ -19,9 +19,18 @@ var editor_1 = require('./editor');
 var Main = (function () {
     function Main() {
         this._editor = new editor_1.Editor();
+        this.globals();
         this.members();
         this.events();
     }
+    Main.prototype.globals = function () {
+        var MarkdownReader = window_1.default.global('MarkdownReader');
+        if (MarkdownReader === undefined) {
+            window_1.default.global('MarkdownReader', {
+                my: {} // see: hooks.js!
+            });
+        }
+    };
     Main.prototype.members = function () {
         if (this.urlMd) {
             window_3.$('#url-md').val(this.urlMd);
@@ -133,8 +142,8 @@ var Main = (function () {
                                         }
                                     }
                                 });
-                                _this.showPage(function (page, pages, go) {
-                                    go.call(_this, 0);
+                                _this.showPage(function (p, ps, go) {
+                                    go.call(this, 0);
                                 });
                             }
                         }
@@ -208,13 +217,176 @@ var Main = (function () {
         }
     };
     Main.prototype.onLhsPagerClick = function () {
-        // TODO: implement!
+        var MarkdownReader = window_1.default.global('MarkdownReader');
+        if (MarkdownReader && MarkdownReader.my &&
+            typeof MarkdownReader.my.lhsPageTo === 'function') {
+            this.showPage(MarkdownReader.my.lhsPageTo);
+        }
+        else {
+            this.showPage(function (p, ps, go) {
+                if (window_3.$('#pager-lhs').attr('disabled') !== 'disabled') {
+                    go.call(this, (p - 1 >= 0) ? p - 1 : 0, p);
+                }
+            });
+        }
+        window_3.$('#content').animate({
+            scrollTop: 0
+        }, 0);
+        var $toc_item = window_3.$(window_3.$('.md-toc-h3')[this.page]);
+        this.scrollTo($toc_item);
+        this.highlight($toc_item);
+        return false;
     };
     Main.prototype.onRhsPagerClick = function () {
-        // TODO: implement!
+        var MarkdownReader = window_1.default.global('MarkdownReader');
+        if (MarkdownReader && MarkdownReader.my &&
+            typeof MarkdownReader.my.rhsPageTo === 'function') {
+            this.showPage(MarkdownReader.my.rhsPageTo);
+        }
+        else {
+            this.showPage(function (p, ps, go) {
+                if (window_3.$('#pager-rhs').attr('disabled') !== 'disabled') {
+                    go.call(this, (p + 1 < ps) ? p + 1 : p, p);
+                }
+            });
+        }
+        window_3.$('#content').animate({
+            scrollTop: 0
+        }, 0);
+        var $toc_item = window_3.$(window_3.$('.md-toc-h3')[this.page]);
+        this.scrollTo($toc_item);
+        this.highlight($toc_item);
+        return false;
+    };
+    Main.prototype.onTocItemClick = function (ev) {
+        var $content = window_3.$('#content'), $pager = window_3.$('#pager');
+        var ref = window_3.$(ev.target).attr('ref');
+        if (ref) {
+            var $el = window_3.$(ref), $header_1;
+            if ($el.length > 0) {
+                switch ($el[0].tagName) {
+                    case 'H1':
+                    case 'H2':
+                        $header_1 = $el.nextAll('h3:first');
+                        break;
+                    case 'H3':
+                        $header_1 = $el;
+                        break;
+                    default:
+                        $header_1 = $el.prevAll('h3:first');
+                }
+                if ($pager.length > 0) {
+                    this.showPage(function (p, ps, go) {
+                        var new_page = $content.find('> h3').index($header_1);
+                        go.call(this, new_page, p);
+                    });
+                }
+                $content.animate({
+                    scrollTop: $el.offset().top
+                }, 375);
+                this.highlight(window_3.$(ev.target).parent());
+            }
+        }
+        return false;
     };
     Main.prototype.showPage = function (counter) {
-        // TODO: implement!
+        var $items = window_3.$('#content > *'), $pages = window_3.$('#content').find('> h3'), $pager = window_3.$('#pager');
+        var $h2s = this.group($items.not('#pager'), function (item) {
+            return item.tagName === 'H2';
+        });
+        var is_h3 = function (item) {
+            return item.tagName === 'H3';
+        };
+        for (var z = 0; z < $h2s.length; z++) {
+            $h2s[z].$h3s = this.group($h2s[z], is_h3);
+        }
+        var go = function (new_page, old_page) {
+            if ($pager.length > 0 && new_page !== old_page) {
+                $pager.trigger('turn:before', [
+                    new_page, old_page, $pages.length
+                ]);
+            }
+            var min_page = 0;
+            window_3.$('#pager-lhs')
+                .attr('disabled', (new_page === min_page).toString());
+            var max_page = $pages.length - 1;
+            window_3.$('#pager-rhs')
+                .attr('disabled', (new_page === max_page).toString());
+            var head = function (h2s) {
+                return window_3.$(h2s).first('h2').nextUntil('h3').andSelf();
+            };
+            var i = 0, j = 0, flag = {};
+            for (var page = 0; page < $pages.length; page++) {
+                if ($h2s[i].$h3s[j] === undefined) {
+                    i += 1;
+                    j = 0;
+                }
+                if (page === new_page) {
+                    var h1_text = $items.first('h1').text(), h2_text = window_3.$($h2s[i]).first('h2').text();
+                    if (h2_text.length > 0 && h2_text !== ' ') {
+                        dizmo_1.default.setAttribute('settings/title', h1_text + ": " + h2_text);
+                    }
+                    else {
+                        dizmo_1.default.setAttribute('settings/title', "" + h1_text);
+                    }
+                    flag[i] = true;
+                    head($h2s[i]).show();
+                    window_3.$($h2s[i].$h3s[j]).show();
+                }
+                else {
+                    if (!flag[i]) {
+                        head($h2s[i]).hide();
+                    }
+                    window_3.$($h2s[i].$h3s[j]).hide();
+                }
+                j += 1;
+            }
+            if ($pager.length > 0 && new_page !== old_page) {
+                $pager.trigger('turn:after', [
+                    new_page, old_page, $pages.length
+                ]);
+            }
+            if (this.scroll1 !== undefined) {
+                this.scroll1.refresh();
+            }
+            this.page = new_page;
+            return this.page;
+        };
+        if (typeof counter === 'function') {
+            counter.call(this, this.page || 0, $pages.length, go);
+        }
+        else {
+            go(this.page || 0, this.page);
+        }
+    };
+    Main.prototype.highlight = function ($tocItem) {
+        window_3.$('.md-toc-item').removeClass('highlight');
+        $tocItem.addClass('highlight');
+    };
+    Main.prototype.scrollTo = function ($tocItem) {
+        if (this.scroll2 !== undefined) {
+            var id = $tocItem.prop('id');
+            if (id) {
+                var dt = 600, dx = 0, dy = -3 * $tocItem.height() - 6, fn = exports.IScroll.utils.ease.quadratic;
+                this.scroll2.scrollToElement('#' + id, dt, dx, dy, fn);
+            }
+        }
+    };
+    Main.prototype.group = function (array, by) {
+        var groups = [], index = null;
+        for (var i = 0; i < array.length; i++) {
+            var item = array[i];
+            if (by(item, index, i)) {
+                index = (index !== null) ? index + 1 : 0;
+            }
+            if (index !== null) {
+                if (groups[index] === undefined) {
+                    groups[index] = [];
+                }
+                groups[index].push(item);
+            }
+        }
+        return window_3.$(groups);
     };
     Main.prototype.getAdaptiveColor = function (hex_color) {
         try {
@@ -237,7 +409,111 @@ var Main = (function () {
         return 'invert(0.0)';
     };
     Main.prototype.initToc = function (opts) {
-        // TODO: implement!
+        var _this = this;
+        var tocs = window_3.$('#md-toc-items'), array = window_3.$('#content > *').not('#pager');
+        for (var i = 0; i < array.length; i++) {
+            var el = array[i];
+            switch (el.tagName) {
+                case 'H1':
+                case 'H2':
+                case 'H3':
+                case 'H4':
+                case 'H5':
+                    tocs.append("<div id=\"" + ('toc-' + i) + "\" \n                        class=\"md-toc-item md-toc-" + el.tagName.toLowerCase() + "\">\n                            <p ref=\"#" + el.id + "\">" + el.textContent + "</p>\n                        </div>");
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (this.tocFlag !== null) {
+            dizmo_1.default.addMenuItem('/style/images/toc.svg', 'Table of Contents', function () {
+                if (window_3.$('#front').css('display') !== 'none') {
+                    if (_this.tocFlag !== true) {
+                        _this.showToc(opts);
+                    }
+                    else {
+                        _this.hideToc(opts);
+                    }
+                    _this.tocFlag = !_this.tocFlag;
+                }
+            });
+        }
+        var $toc_home = window_3.$('#md-toc-home');
+        $toc_home.on('click', function () {
+            _this.showPage(function (p, ps, go) {
+                go.call(this, 0);
+            });
+        });
+        var $toc_search = window_3.$('#md-toc-search');
+        $toc_search.on('input', function () {
+            if (window_3.$('#md-toc-search').val() === '') {
+                window_3.$('.md-toc-item:has(p:not(:empty))').each(function () {
+                    window_3.$(_this).show();
+                });
+                if (_this.scroll2 !== undefined) {
+                    _this.scroll2.refresh();
+                }
+            }
+        });
+        $toc_search.keyup(function (ev) {
+            var keyCode = ev.keyCode || ev.which;
+            if (keyCode === 27) {
+                window_3.$('.md-toc-item:has(p:not(:empty))').each(function () {
+                    window_3.$(this).show();
+                });
+                window_3.$('#md-toc-search').val('');
+            }
+            else {
+                var rx_1 = new RegExp(window_3.$('#md-toc-search').val(), 'i');
+                window_3.$('.md-toc-item:has(p:not(:empty))').each(function (i) {
+                    var $item = window_3.$(this);
+                    if (rx_1.source.length > 0 && i > 0) {
+                        var text = $item.find('p').text();
+                        if (text.match(rx_1)) {
+                            $item.show();
+                        }
+                        else {
+                            $item.hide();
+                        }
+                    }
+                    else {
+                        $item.show();
+                    }
+                });
+                if (this.scroll2 !== undefined) {
+                    this.scroll2.refresh();
+                }
+            }
+        });
+        var $tocItems = window_3.$('.md-toc-item');
+        $tocItems.click(this.onTocItemClick.bind(this)).each(function () {
+            if (window_3.$(this).find('p:empty').length > 0) {
+                window_3.$(this).hide();
+            }
+        });
+        this.highlight($tocItems.first());
+        if (this.tocFlag) {
+            this.showToc(opts);
+        }
+    };
+    Main.prototype.showToc = function (opts) {
+        var $toc_list = exports.DizmoElements('#md-toc'), $toc_item = $toc_list.find('.md-toc-item');
+        setTimeout(function () {
+            if (!opts || !opts.no_resize) {
+                var w = dizmo_1.default.get('geometry/width'), h = dizmo_1.default.get('geometry/height');
+                dizmo_1.default.set('geometry/width', w + $toc_list.width());
+                dizmo_1.default.set('geometry/height', h);
+            }
+            window_3.$('html, body').css('width', '100%');
+            window_3.$('#content-wrap').css('width', 'calc(100% - 270px)');
+            $toc_item.css('border-bottom', 'lightgray solid 1px');
+            $toc_list.show();
+        }, 0);
+        var $toc_home = $toc_list.find('#md-toc-home');
+        $toc_home.dbutton();
+        var $toc_search = $toc_list.find('#md-toc-search');
+        $toc_search.dsearchfield();
+        $toc_search.focus();
     };
     Main.prototype.hideToc = function (opts) {
         var $toc_list = exports.DizmoElements('#md-toc'), $toc_item = $toc_list.find('.md-toc-item');
@@ -272,6 +548,16 @@ var Main = (function () {
             return href;
         }
     };
+    Object.defineProperty(Main.prototype, "page", {
+        get: function () {
+            return this._page;
+        },
+        set: function (value) {
+            this._page = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Main.prototype, "scroll1", {
         get: function () {
             return this._scroll1;
