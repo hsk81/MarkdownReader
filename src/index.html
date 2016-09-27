@@ -2,17 +2,27 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>MarkdownReader</title>
+    <title>Markdown Reader</title>
 
+    <link rel="stylesheet" href="assets/css/codemirror.min.css">
     <link rel="stylesheet" href="style/style.css">
 </head>
+
 <body>
 <div id="front">
-    <div class="table">
-        <div class="table-cell">MarkdownReader</div>
-    </div>
+    <div class="md-logo" style="background-image: url(style/image/tourguide-light.svg);"></div>
 </div>
 <div id="back">
+    <form>
+        <label for="url-md">Content URL</label>
+        <input id="url-md" type="url" name="url" data-type="dizmo-input" data-required="true"
+               placeholder="Markdown URL (e.g. http://www.example.com/en/index.md)"/>
+        <label for="url-css">Styling URL</label>
+        <input id="url-css" type="url" name="url" data-type="dizmo-input" data-required="true"
+               placeholder="CSS URL (e.g. http://www.example.com/reader.css)"/>
+    </form>
+    <label for="editor">Content</label>
+    <textarea id="editor" name="editor" placeholder="Custom CSS .."></textarea>
     <div class="footer">
         <button class="done" data-type="dizmo-button">Done</button>
     </div>
