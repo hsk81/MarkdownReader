@@ -1,4 +1,3 @@
-import window from './sys/type/window';
 import viewer from './sys/type/viewer';
 import dizmo from './sys/type/dizmo';
 import {$} from './sys/type/window';

@@ -9,9 +9,12 @@ jQuery('#pager').on('turn:before', function (event, new_page, page) {
         };
 
         jQuery.get('assets/html/overlay.html', function (data) {
-            jQuery('#front').prepend(jQuery(data).on('click', function (ev) {
+            jQuery('#front').prepend(jQuery(data).on('click', function () {
                 jQuery('#overlay').fadeOut('fast');
             }));
+
+            jQuery('#overlay')
+                .find('p').text(T('#overlay/p'));
 
             dizmo.subscribeToAttribute(path, on_framecolor);
             on_framecolor(path, dizmo.getAttribute(path));
@@ -24,7 +27,7 @@ jQuery('#pager').on('turn:before', function (event, new_page, page) {
 jQuery('#pager').on('turn:after', function (event, new_page, page) {
 
     if (new_page === 0 && page === undefined) {
-        dizmo.setAttribute('settings/title', 'Markdown Reader');
+        dizmo.setAttribute('settings/title', T('#dizmo/settings/title'));
     }
 
     console.debug('[on:turn:after]', arguments);

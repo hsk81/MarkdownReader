@@ -22,6 +22,12 @@ export class I18N {
     }
 
     private translate(T:TranslationFunction) {
+        this.$back.find('#editor')
+            .prop('placeholder', T('#back/#editor/placeholder'));
+        this.$back.find('#url-md')
+            .prop('placeholder', T('#back/#url-md/placeholder'));
+        this.$back.find('#url-css')
+            .prop('placeholder', T('#back/#url-css/placeholder'));
         this.$back.find('.footer>.done')
             .html(T('#back/.footer/.done'));
     }

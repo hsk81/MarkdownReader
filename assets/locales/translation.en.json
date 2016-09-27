@@ -1,5 +1,22 @@
 {
+  "#dizmo": {
+    "settings": {
+      "title": "Markdown Reader [EN]"
+    }
+  },
+  "#overlay": {
+    "p": "Touch to start reading the documentation."
+  },
   "#back": {
+    "#editor": {
+      "placeholder": "Customized CSS..."
+    },
+    "#url-md": {
+      "placeholder": "Markdown URL (e.g. http://www.example.com/en/index.md)"
+    },
+    "#url-css": {
+      "placeholder": "CSS URL (e.g. http://www.example.com/reader.css)"
+    },
     ".footer": {
       ".done": "Done"
     }
