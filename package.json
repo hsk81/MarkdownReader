@@ -27,7 +27,7 @@
         "watchify": "^3.7.0"
     },
     "dizmo": {
-        "install-to": "/home/hsk81/.local/share/dizmo/dizmo/hsk81/InstalledDizmos/",
+        "install-to": "",
         "settings": {
             "bundle-name": "Markdown Reader",
             "bundle-identifier": "com.dizmo.markdownreader_ng",
@@ -62,5 +62,5 @@
         "test": "exit 0",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch"
     },
-    "version": "0.0.35"
+    "version": "0.0.43"
 }

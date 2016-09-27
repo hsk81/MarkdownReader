@@ -13,8 +13,6 @@ import {Reader} from './reader';
 import {Dizmo} from './dizmo';
 import {Main} from './main';
 
-window.global('events', {});
-
 @trace
 @named('App')
 export class App {

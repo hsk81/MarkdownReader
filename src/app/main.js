@@ -442,12 +442,13 @@ var Main = (function () {
             _this.showPage(function (p, ps, go) {
                 go.call(this, 0);
             });
+            _this.highlight(window_3.$('.md-toc-item:first-of-type'));
         });
         var $toc_search = window_3.$('#md-toc-search');
         $toc_search.on('input', function () {
             if (window_3.$('#md-toc-search').val() === '') {
                 window_3.$('.md-toc-item:has(p:not(:empty))').each(function () {
-                    window_3.$(_this).show();
+                    window_3.$(this).show();
                 });
                 if (_this.scroll2 !== undefined) {
                     _this.scroll2.refresh();

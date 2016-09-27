@@ -19,7 +19,6 @@ var i18n_1 = require('./i18n');
 var reader_1 = require('./reader');
 var dizmo_2 = require('./dizmo');
 var main_1 = require('./main');
-window_1.default.global('events', {});
 var App = (function () {
     function App() {
         this.globals();

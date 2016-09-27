@@ -517,12 +517,14 @@ export class Main {
             this.showPage(function (p:number, ps:number, go:Function) {
                 go.call(this, 0);
             });
+
+            this.highlight($('.md-toc-item:first-of-type'));
         });
 
         let $toc_search = $('#md-toc-search');
         $toc_search.on('input', () => {
             if ($('#md-toc-search').val() === '') {
-                $('.md-toc-item:has(p:not(:empty))').each(() => {
+                $('.md-toc-item:has(p:not(:empty))').each(function () {
                     $(this).show();
                 });
                 if (this.scroll2 !== undefined) {
