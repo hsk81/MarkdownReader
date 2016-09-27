@@ -1,7 +1,7 @@
 import {named} from './sys/util/named';
 import {trace} from './sys/util/trace';
 
-export declare let CodeMirror:any;
+declare let CodeMirror:any;
 
 @trace
 @named('Editor')

@@ -12,8 +12,8 @@ var named_1 = require('./sys/util/named');
 var trace_1 = require('./sys/util/trace');
 var Editor = (function () {
     function Editor() {
-        if (typeof exports.CodeMirror !== 'undefined') {
-            this.editor = exports.CodeMirror.fromTextArea(this.ta, {
+        if (typeof CodeMirror !== 'undefined') {
+            this.editor = CodeMirror.fromTextArea(this.ta, {
                 lineNumbers: true,
                 lineWrapping: true,
                 matchBrackets: true,

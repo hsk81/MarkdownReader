@@ -67,7 +67,7 @@ var Main = (function () {
         window_3.$('style#extra').remove();
         window_3.$('#front').empty()
             .append('<div id="md-logo" style="background-image: {0}"></div>'
-            .replace('{0}', 'url(style/images/tourguide-light.svg);'))
+            .replace('{0}', 'url(style/image/tourguide-light.svg);'))
             .append('<div id="md-toc"><div id="md-toc-items"/></div>');
         var extraCss = this.editor.value;
         if (extraCss && extraCss.length > 0) {
@@ -182,14 +182,14 @@ var Main = (function () {
                                 setTimeout(function () {
                                     window_3.$('#content-wrap')
                                         .addClass('no-dizmo-drag');
-                                    _this.scroll1 = new exports.IScroll('#content-wrap', _this.scroll1Opts);
+                                    _this.scroll1 = new IScroll('#content-wrap', _this.scroll1Opts);
                                 }, 200);
                             }
                             if (_this.scroll2Opts) {
                                 setTimeout(function () {
                                     window_3.$('#md-toc-items-wrap')
                                         .addClass('no-dizmo-drag');
-                                    _this.scroll2 = new exports.IScroll('#md-toc-items-wrap', _this.scroll2Opts);
+                                    _this.scroll2 = new IScroll('#md-toc-items-wrap', _this.scroll2Opts);
                                 }, 600);
                             }
                         }
@@ -298,13 +298,21 @@ var Main = (function () {
                 ]);
             }
             var min_page = 0;
-            window_3.$('#pager-lhs')
-                .attr('disabled', (new_page === min_page).toString());
+            if (min_page === new_page) {
+                window_3.$('#pager-lhs').attr('disabled', 'disabled');
+            }
+            else {
+                window_3.$('#pager-lhs').removeAttr('disabled');
+            }
             var max_page = $pages.length - 1;
-            window_3.$('#pager-rhs')
-                .attr('disabled', (new_page === max_page).toString());
+            if (max_page === new_page) {
+                window_3.$('#pager-rhs').attr('disabled', 'disabled');
+            }
+            else {
+                window_3.$('#pager-rhs').removeAttr('disabled');
+            }
             var head = function (h2s) {
-                return window_3.$(h2s).first('h2').nextUntil('h3').andSelf();
+                return window_3.$(h2s).first('h2').nextUntil('h3').addBack();
             };
             var i = 0, j = 0, flag = {};
             for (var page = 0; page < $pages.length; page++) {
@@ -358,7 +366,7 @@ var Main = (function () {
         if (this.scroll2 !== undefined) {
             var id = $tocItem.prop('id');
             if (id) {
-                var dt = 600, dx = 0, dy = -3 * $tocItem.height() - 6, fn = exports.IScroll.utils.ease.quadratic;
+                var dt = 600, dx = 0, dy = -3 * $tocItem.height() - 6, fn = IScroll.utils.ease.quadratic;
                 this.scroll2.scrollToElement('#' + id, dt, dx, dy, fn);
             }
         }
@@ -381,7 +389,7 @@ var Main = (function () {
     };
     Main.prototype.getAdaptiveColor = function (hex_color) {
         try {
-            return (exports.Colors.hex2bright(hex_color.slice(0, 7))) ?
+            return (Colors.hex2bright(hex_color.slice(0, 7))) ?
                 '#3d3d3d' : '#e6e6e6';
         }
         catch (ex) {
@@ -391,7 +399,7 @@ var Main = (function () {
     };
     Main.prototype.getAdaptiveInversion = function (hex_color) {
         try {
-            return (exports.Colors.hex2bright(hex_color.slice(0, 7))) ?
+            return (Colors.hex2bright(hex_color.slice(0, 7))) ?
                 'invert(0.0)' : 'invert(1.0)';
         }
         catch (ex) {
@@ -417,7 +425,7 @@ var Main = (function () {
             }
         }
         if (this.tocFlag !== null) {
-            dizmo_1.default.addMenuItem('/style/images/toc.svg', 'Table of Contents', function () {
+            dizmo_1.default.addMenuItem('/style/image/toc.svg', 'Table of Contents', function () {
                 if (window_3.$('#front').css('display') !== 'none') {
                     if (_this.tocFlag !== true) {
                         _this.showToc(opts);
@@ -488,7 +496,7 @@ var Main = (function () {
         }
     };
     Main.prototype.showToc = function (opts) {
-        var $toc_list = exports.DizmoElements('#md-toc'), $toc_item = $toc_list.find('.md-toc-item');
+        var $toc_list = DizmoElements('#md-toc'), $toc_item = $toc_list.find('.md-toc-item');
         setTimeout(function () {
             if (!opts || !opts.no_resize) {
                 var w = dizmo_1.default.get('geometry/width'), h = dizmo_1.default.get('geometry/height');
@@ -507,7 +515,7 @@ var Main = (function () {
         $toc_search.focus();
     };
     Main.prototype.hideToc = function (opts) {
-        var $toc_list = exports.DizmoElements('#md-toc'), $toc_item = $toc_list.find('.md-toc-item');
+        var $toc_list = DizmoElements('#md-toc'), $toc_item = $toc_list.find('.md-toc-item');
         setTimeout(function () {
             if (!opts || !opts.no_resize) {
                 var w = dizmo_1.default.get('geometry/width'), h = dizmo_1.default.get('geometry/height');
@@ -694,7 +702,9 @@ var Main = (function () {
             };
             return {
                 convert: function (mdValue) {
-                    return window_2.marked(mdValue, { renderer: renderer });
+                    var html = window_2.marked(mdValue, { renderer: renderer });
+                    window_1.default.global('HTML', html);
+                    return html;
                 }
             };
         },

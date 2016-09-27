@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var window_1 = require('./sys/type/window');
 var viewer_1 = require('./sys/type/viewer');
 var dizmo_1 = require('./sys/type/dizmo');
-var window_1 = require('./sys/type/window');
+var window_2 = require('./sys/type/window');
 var trace_1 = require('./sys/util/trace');
 var named_1 = require('./sys/util/named');
 var Dizmo = (function () {
@@ -21,14 +22,30 @@ var Dizmo = (function () {
     Dizmo.prototype.attributes = function () {
         dizmo_1.default.set('settings/usercontrols/allowresize', false);
         var h = dizmo_1.default.get('geometry/height'), w = dizmo_1.default.get('geometry/width');
-        var $html = window_1.$('html');
+        var $html = window_2.$('html');
         $html.css('height', h - 16);
         $html.css('width', w - 16);
-        var $body = window_1.$('body');
+        var $body = window_2.$('body');
         $body.css('height', h - 16);
         $body.css('width', w - 16);
     };
     Dizmo.prototype.events = function () {
+        dizmo_1.default.onShowBack(function () {
+            window_2.$(window_1.default.global('events'))
+                .trigger('dizmo.turned', ['back']);
+        });
+        dizmo_1.default.onShowFront(function () {
+            window_2.$(window_1.default.global('events'))
+                .trigger('dizmo.turned', ['front']);
+        });
+        dizmo_1.default.on('settings/framecolor', function (path, value) {
+            window_2.$(window_1.default.global('events'))
+                .trigger('dizmo.framecolor', [value]);
+        });
+        viewer_1.default.on('settings/language', function (path, value) {
+            window_2.$(window_1.default.global('events'))
+                .trigger('dizmo.onlanguagechanged', [value]);
+        });
         viewer_1.default.on('settings/displaymode', function (path, value) {
             dizmo_1.default.set('state/framehidden', value === 'presentation');
         });

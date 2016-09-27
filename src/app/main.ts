@@ -11,9 +11,9 @@ import {trace} from './sys/util/trace';
 import {Dizmo} from './dizmo';
 import {Editor} from './editor';
 
-export declare let Colors:any;
-export declare let IScroll:any;
-export declare let DizmoElements:any;
+declare let Colors:any;
+declare let IScroll:any;
+declare let DizmoElements:any;
 
 @trace
 @named('Main')
@@ -90,7 +90,7 @@ export class Main {
         $('style#extra').remove();
         $('#front').empty()
             .append('<div id="md-logo" style="background-image: {0}"></div>'
-                .replace('{0}', 'url(style/images/tourguide-light.svg);'))
+                .replace('{0}', 'url(style/image/tourguide-light.svg);'))
             .append('<div id="md-toc"><div id="md-toc-items"/></div>');
 
         let extraCss = this.editor.value;
@@ -350,14 +350,20 @@ export class Main {
             }
 
             let min_page = 0;
-            $('#pager-lhs')
-                .attr('disabled', (new_page === min_page).toString());
+            if (min_page === new_page) {
+                $('#pager-lhs').attr('disabled', 'disabled');
+            } else {
+                $('#pager-lhs').removeAttr('disabled');
+            }
             let max_page = $pages.length - 1;
-            $('#pager-rhs')
-                .attr('disabled', (new_page === max_page).toString());
+            if (max_page === new_page) {
+                $('#pager-rhs').attr('disabled', 'disabled');
+            } else {
+                $('#pager-rhs').removeAttr('disabled');
+            }
 
             let head = (h2s:HTMLElement) => {
-                return ($(h2s) as any).first('h2').nextUntil('h3').andSelf();
+                return ($(h2s) as any).first('h2').nextUntil('h3').addBack();
             };
 
             let i = 0, j = 0, flag:any = {};
@@ -493,7 +499,7 @@ export class Main {
 
         if (this.tocFlag !== null) {
             dizmo.addMenuItem(
-                '/style/images/toc.svg', 'Table of Contents', () => {
+                '/style/image/toc.svg', 'Table of Contents', () => {
                     if ($('#front').css('display') !== 'none') {
                         if (this.tocFlag !== true) {
                             this.showToc(opts);
@@ -765,7 +771,9 @@ export class Main {
         };
         return {
             convert: function (mdValue:string) {
-                return marked(mdValue, {renderer: renderer});
+                let html:string = marked(mdValue, {renderer: renderer});
+                window.global('HTML', html);
+                return html;
             }
         };
     }

@@ -52,7 +52,7 @@
     "private": true,
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "gitolite@dev.dizmo.com:dizmos/MarkdownReaderNG"
     },
     "scripts": {
         "clean": "node ./node_modules/gulp/bin/gulp.js clean",
@@ -62,5 +62,5 @@
         "test": "exit 0",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch"
     },
-    "version": "0.0.10"
+    "version": "0.0.35"
 }

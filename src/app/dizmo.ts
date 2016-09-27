@@ -1,3 +1,4 @@
+import window from './sys/type/window';
 import viewer from './sys/type/viewer';
 import dizmo from './sys/type/dizmo';
 import {$} from './sys/type/window';
@@ -28,6 +29,22 @@ export class Dizmo {
     }
 
     private events() {
+        dizmo.onShowBack(() => {
+            $(window.global<any>('events'))
+                .trigger('dizmo.turned', ['back']);
+        });
+        dizmo.onShowFront(() => {
+            $(window.global<any>('events'))
+                .trigger('dizmo.turned', ['front']);
+        });
+        dizmo.on('settings/framecolor', (path:string, value:string) => {
+            $(window.global<any>('events'))
+                .trigger('dizmo.framecolor', [value]);
+        });
+        viewer.on('settings/language', (path:string, value:string) => {
+            $(window.global<any>('events'))
+                .trigger('dizmo.onlanguagechanged', [value]);
+        });
         viewer.on('settings/displaymode', (path:string, value:any) => {
             dizmo.set('state/framehidden', value === 'presentation');
         });

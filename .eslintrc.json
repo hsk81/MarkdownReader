@@ -6,10 +6,13 @@
   },
   "globals": {
     "bundle": false,
+    "CodeMirror": false,
+    "Colors": false,
     "dizmo": false,
     "DizmoElements": false,
     "DizmoHelper": false,
     "i18n": false,
+    "IScroll": false,
     "Reflect": false,
     "showBack": false,
     "showFront": false,
