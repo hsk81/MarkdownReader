@@ -24,18 +24,8 @@ export class Main {
     private _page:number;
 
     public constructor() {
-        this.globals();
         this.members();
         this.events();
-    }
-
-    private globals() {
-        let MarkdownReader = window.global<any>('MarkdownReader');
-        if (MarkdownReader === undefined) {
-            window.global('MarkdownReader', {
-                my: {} // see: hooks.js!
-            });
-        }
     }
 
     private members() {

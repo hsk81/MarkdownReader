@@ -6,6 +6,7 @@ import {named} from './sys/util/named';
 import {trace} from './sys/util/trace';
 
 import {I18N, TranslationFunction} from './i18n';
+import {Reader} from './reader';
 import {Dizmo} from './dizmo';
 import {Main} from './main';
 
@@ -18,6 +19,7 @@ export class App {
     }
 
     private globals() {
+        window.global('READER', new Reader());
         window.global('DIZMO', new Dizmo());
         window.global('MAIN', new Main());
     }

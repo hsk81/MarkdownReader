@@ -19,18 +19,9 @@ var editor_1 = require('./editor');
 var Main = (function () {
     function Main() {
         this._editor = new editor_1.Editor();
-        this.globals();
         this.members();
         this.events();
     }
-    Main.prototype.globals = function () {
-        var MarkdownReader = window_1.default.global('MarkdownReader');
-        if (MarkdownReader === undefined) {
-            window_1.default.global('MarkdownReader', {
-                my: {} // see: hooks.js!
-            });
-        }
-    };
     Main.prototype.members = function () {
         if (this.urlMd) {
             window_3.$('#url-md').val(this.urlMd);

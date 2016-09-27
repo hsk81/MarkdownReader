@@ -14,6 +14,7 @@ var after_1 = require('./sys/util/after');
 var named_1 = require('./sys/util/named');
 var trace_1 = require('./sys/util/trace');
 var i18n_1 = require('./i18n');
+var reader_1 = require('./reader');
 var dizmo_2 = require('./dizmo');
 var main_1 = require('./main');
 var App = (function () {
@@ -22,6 +23,7 @@ var App = (function () {
         this.events();
     }
     App.prototype.globals = function () {
+        window_1.default.global('READER', new reader_1.Reader());
         window_1.default.global('DIZMO', new dizmo_2.Dizmo());
         window_1.default.global('MAIN', new main_1.Main());
     };

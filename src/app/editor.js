@@ -12,20 +12,74 @@ var named_1 = require('./sys/util/named');
 var trace_1 = require('./sys/util/trace');
 var Editor = (function () {
     function Editor() {
-        this.events();
+        if (typeof exports.CodeMirror !== 'undefined') {
+            this.editor = exports.CodeMirror.fromTextArea(this.ta, {
+                lineNumbers: true,
+                lineWrapping: true,
+                matchBrackets: true,
+                mode: 'css',
+                styleActiveLine: true
+            });
+        }
+        this.value = this.content;
     }
     Editor.prototype.refresh = function () {
-        // TODO: implement!
+        if (this.editor !== undefined) {
+            this.editor.refresh();
+        }
     };
-    Editor.prototype.events = function () {
-        // TODO: implement!
-    };
-    Object.defineProperty(Editor.prototype, "value", {
+    Object.defineProperty(Editor.prototype, "editor", {
         get: function () {
-            return ''; // TODO: implement!
+            return this._editor;
         },
         set: function (value) {
-            // TODO: implement!
+            this._editor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Editor.prototype, "value", {
+        get: function () {
+            if (this.editor !== undefined) {
+                return this.editor.getValue();
+            }
+            else {
+                return this.ta.value;
+            }
+        },
+        set: function (value) {
+            if (this.editor) {
+                this.editor.setValue(value);
+            }
+            else {
+                this.ta.value = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Editor.prototype, "ta", {
+        get: function () {
+            return document.getElementById('editor');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Editor.prototype, "content", {
+        get: function () {
+            return [
+                '/**\n',
+                ' * Extra CSS: front, content, headers etc.\n',
+                ' */\n',
+                '\n',
+                '#front {\n',
+                '  /* front side styles */\n',
+                '}\n',
+                '\n',
+                '#content {\n',
+                '  /* content styles (on front side) */\n',
+                '}\n'
+            ].join('');
         },
         enumerable: true,
         configurable: true
