@@ -62,5 +62,5 @@
         "test": "exit 0",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch"
     },
-    "version": "0.0.43"
+    "version": "2.0.0"
 }
