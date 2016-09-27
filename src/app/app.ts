@@ -1,5 +1,8 @@
 import window from './sys/type/window';
+import bundle from './sys/type/bundle';
 import dizmo from './sys/type/dizmo';
+
+import {$} from './sys/type/window';
 
 import {after} from './sys/util/after';
 import {named} from './sys/util/named';
@@ -41,7 +44,49 @@ document.addEventListener('dizmoready', () => {
         };
 
         window.global('I18N', new I18N(after(on_i18n, () => {
-            window.global('APP', new App());
+            $.get('assets/settings.json').done((json:string|any) => {
+                if ($.isPlainObject(json) === false) {
+                    json = JSON.parse(json);
+                }
+
+                for (let key in json) {
+                    if (json.hasOwnProperty(key)) {
+                        let value = dizmo.internal.get(key);
+                        if (value !== undefined && value !== null) {
+                            if (typeof value === 'object') {
+                                json[key] = $.extend(true, json[key], value);
+                            } else {
+                                json[key] = value;
+                            }
+                        }
+                        dizmo.internal.set(key, json[key]);
+                    }
+                }
+
+                if (dizmo.internal.get('showBack') === true) {
+                    window.showBack = function () {
+                        dizmo.showBack();
+                    };
+                }
+                if (dizmo.internal.get('showFront') === true) {
+                    window.showFront = function () {
+                        dizmo.showFront();
+                    };
+                }
+
+                let width = bundle.get('width');
+                if (typeof width === 'number') {
+                    dizmo.set('geometry/width', width);
+                }
+                let height = bundle.get('height');
+                if (typeof height === 'number') {
+                    dizmo.set('geometry/height', height);
+                }
+
+                window.global('APP', new App());
+            });
+
+            window.global('EVAL', eval);
         })));
     }
 });
