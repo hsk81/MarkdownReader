@@ -9,50 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var window_1 = require('./sys/type/window');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
 var named_1 = require('./sys/util/named');
 var trace_1 = require('./sys/util/trace');
-var Main = (function () {
-    function Main() {
-        this.events();
+var Language = (function () {
+    function Language() {
     }
-    Main.prototype.events = function () {
-        window_2.$('#back').find('.done').on('click', this.onDoneClick.bind(this));
-        dizmo_1.default.onShowBack(this.onShowBack.bind(this));
-    };
-    Main.prototype.onDoneClick = function () {
-        dizmo_1.default.showFront();
-    };
-    Main.prototype.onShowBack = function (opts) {
-        dizmo_1.default.set('settings/title', 'Markdown Reader');
-        this.editor.refresh();
-        if (this.tocPanel.hidden) {
-            this.tocPanel.hide(opts);
+    Language.template = function (tpl) {
+        if (typeof tpl === 'string') {
+            return tpl.replace('${LANGUAGE}', this.dizmo.language);
+        }
+        else {
+            return tpl;
         }
     };
-    Object.defineProperty(Main.prototype, "editor", {
+    Object.defineProperty(Language, "dizmo", {
         get: function () {
-            return window_1.default.global('EDITOR');
+            return window_1.default.global('DIZMO');
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Main.prototype, "tocPanel", {
-        get: function () {
-            return window_1.default.global('TOC_PANEL');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Main = __decorate([
+    Language = __decorate([
         trace_1.trace,
-        named_1.named('Main'), 
+        named_1.named('Language'), 
         __metadata('design:paramtypes', [])
-    ], Main);
-    return Main;
+    ], Language);
+    return Language;
 }());
-exports.Main = Main;
+exports.Language = Language;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Main;
-//# sourceMappingURL=main.js.map
+exports.default = Language;
+//# sourceMappingURL=language.js.map

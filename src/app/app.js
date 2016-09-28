@@ -16,9 +16,13 @@ var after_1 = require('./sys/util/after');
 var named_1 = require('./sys/util/named');
 var trace_1 = require('./sys/util/trace');
 var i18n_1 = require('./i18n');
+var content_panel_1 = require('./content-panel');
+var toc_panel_1 = require('./toc-panel');
 var reader_1 = require('./reader');
 var dizmo_2 = require('./dizmo');
 var main_1 = require('./main');
+var pager_1 = require('./pager');
+var editor_1 = require('./editor');
 var App = (function () {
     function App() {
         this.globals();
@@ -27,6 +31,10 @@ var App = (function () {
     App.prototype.globals = function () {
         window_1.default.global('READER', new reader_1.Reader());
         window_1.default.global('DIZMO', new dizmo_2.Dizmo());
+        window_1.default.global('EDITOR', new editor_1.Editor());
+        window_1.default.global('CONTENT_PANEL', new content_panel_1.ContentPanel());
+        window_1.default.global('TOC_PANEL', new toc_panel_1.TocPanel());
+        window_1.default.global('PAGER', new pager_1.Pager());
         window_1.default.global('MAIN', new main_1.Main());
     };
     App.prototype.events = function () {
