@@ -2,6 +2,7 @@ import viewer from './sys/type/viewer';
 import window from './sys/type/window';
 import dizmo from './sys/type/dizmo';
 
+import {TranslationFunction} from './sys/type/window';
 import {marked} from './sys/type/window';
 import {$} from './sys/type/window';
 
@@ -499,7 +500,7 @@ export class Main {
 
         if (this.tocFlag !== null) {
             dizmo.addMenuItem(
-                '/style/image/toc.svg', 'Table of Contents', () => {
+                '/style/image/toc.svg', this.T('#dizmo/menu/toc'), () => {
                     if ($('#front').css('display') !== 'none') {
                         if (this.tocFlag !== true) {
                             this.showToc(opts);
@@ -778,6 +779,10 @@ export class Main {
                 return html;
             }
         };
+    }
+
+    private get T():TranslationFunction {
+        return window.global<TranslationFunction>('T');
     }
 }
 

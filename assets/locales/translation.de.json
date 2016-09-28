@@ -2,6 +2,9 @@
   "#dizmo": {
     "settings": {
       "title": "Markdown Reader [DE]"
+    },
+    "menu": {
+      "toc": "Inhaltsverzeichnis"
     }
   },
   "#overlay": {

@@ -30,7 +30,7 @@
         "install-to": "",
         "settings": {
             "bundle-name": "Markdown Reader",
-            "bundle-identifier": "com.dizmo.markdownreader_ng",
+            "bundle-identifier": "com.dizmo.markdownreader",
             "elements-version": "1.0",
             "height": 480,
             "width": 576
@@ -62,5 +62,5 @@
         "test": "exit 0",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch"
     },
-    "version": "2.0.12"
+    "version": "2.0.15"
 }

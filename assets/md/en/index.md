@@ -284,7 +284,7 @@ By setting the `showBack` flag to `false` flipping to the back side can be disab
 
 <script>
 jQuery.get(
-    '/bundles/com.dizmo.markdownreader_ng/assets/js/hooks.js'
+    '/bundles/com.dizmo.markdownreader/assets/js/hooks.js'
 ).done(function (data) {
     eval(data); jQuery('#pager').trigger('turn:before', [0]);
 });

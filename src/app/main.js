@@ -425,7 +425,7 @@ var Main = (function () {
             }
         }
         if (this.tocFlag !== null) {
-            dizmo_1.default.addMenuItem('/style/image/toc.svg', 'Table of Contents', function () {
+            dizmo_1.default.addMenuItem('/style/image/toc.svg', this.T('#dizmo/menu/toc'), function () {
                 if (window_3.$('#front').css('display') !== 'none') {
                     if (_this.tocFlag !== true) {
                         _this.showToc(opts);
@@ -708,6 +708,13 @@ var Main = (function () {
                     return html;
                 }
             };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Main.prototype, "T", {
+        get: function () {
+            return window_1.default.global('T');
         },
         enumerable: true,
         configurable: true
