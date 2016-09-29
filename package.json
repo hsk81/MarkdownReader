@@ -39,9 +39,7 @@
     "keywords": [
         "dizmo",
         "markdown",
-        "reader",
-        "document",
-        "render"
+        "reader"
     ],
     "license": "ISC",
     "name": "MarkdownReader",
