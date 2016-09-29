@@ -26,7 +26,6 @@ var editor_1 = require('./editor');
 var App = (function () {
     function App() {
         this.globals();
-        this.events();
     }
     App.prototype.globals = function () {
         window_1.default.global('READER', new reader_1.Reader());
@@ -36,14 +35,6 @@ var App = (function () {
         window_1.default.global('TOC_PANEL', new toc_panel_1.TocPanel());
         window_1.default.global('PAGER', new pager_1.Pager());
         window_1.default.global('MAIN', new main_1.Main());
-    };
-    App.prototype.events = function () {
-        window_1.default.showBack = function () {
-            dizmo_1.default.showBack();
-        };
-        window_1.default.showFront = function () {
-            dizmo_1.default.showFront();
-        };
     };
     App = __decorate([
         trace_1.trace,
