@@ -22,7 +22,6 @@ import {Editor} from './editor';
 export class App {
     public constructor() {
         this.globals();
-        this.events();
     }
 
     private globals() {
@@ -33,15 +32,6 @@ export class App {
         window.global('TOC_PANEL', new TocPanel());
         window.global('PAGER', new Pager());
         window.global('MAIN', new Main());
-    }
-
-    private events() {
-        window.showBack = () => {
-            dizmo.showBack();
-        };
-        window.showFront = () => {
-            dizmo.showFront();
-        };
     }
 }
 
