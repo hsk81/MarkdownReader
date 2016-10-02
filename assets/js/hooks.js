@@ -13,8 +13,8 @@ jQuery('#pager').on('turn:before', function (event, new_page, page) {
             $front.prepend(jQuery(data));
 
             var $overlay = jQuery('#overlay');
-            $overlay.on('click', function (ev) {
-                jQuery(ev.target).fadeOut('fast');
+            $overlay.on('click', function () {
+                $overlay.fadeOut('fast');
             });
 
             $overlay
