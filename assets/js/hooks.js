@@ -9,11 +9,15 @@ jQuery('#pager').on('turn:before', function (event, new_page, page) {
         };
 
         jQuery.get('assets/html/overlay.html', function (data) {
-            jQuery('#front').prepend(jQuery(data).on('click', function () {
-                jQuery('#overlay').fadeOut('fast');
-            }));
+            var $front = jQuery('#front');
+            $front.prepend(jQuery(data));
 
-            jQuery('#overlay')
+            var $overlay = jQuery('#overlay');
+            $overlay.on('click', function (ev) {
+                jQuery(ev.target).fadeOut('fast');
+            });
+
+            $overlay
                 .find('p').text(T('#overlay/p'));
 
             dizmo.subscribeToAttribute(path, on_framecolor);

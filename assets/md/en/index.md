@@ -108,7 +108,7 @@ Any *relative* Markdown image (or link) URL is interpreted relative to the base 
 
 Finally, any URL starting with a *slash* `/` is relative to the dizmo base: This allows to fetch assets which have been embedded within the dizmo itself; e.g. to reference the embedded `md-logo.svg` image use:
 
-    /bundles/com.dizmo.markdownreader/assets/img/md-logo.svg
+    /bundles/com.dizmo.markdownreader_ng/assets/img/md-logo.svg
 
 **Info:** Any HTML snippet (or CSS style) can be mixed freely with the MD content. But this should be avoided as far as possible and only the native MD notation should be used &ndash; however, the `MarkdownReader` dizmo itself uses a limited number of such snippets like for the `#pager` buttons or the `hooks.js` script.
 
@@ -284,7 +284,7 @@ By setting the `showBack` flag to `false` flipping to the back side can be disab
 
 <script>
 jQuery.get(
-    '/bundles/com.dizmo.markdownreader/assets/js/hooks.js'
+    '/bundles/com.dizmo.markdownreader_ng/assets/js/hooks.js'
 ).done(function (data) {
     eval(data); jQuery('#pager').trigger('turn:before', [0]);
 });

@@ -108,7 +108,7 @@ Jede *relative* Markdown Bild (oder Link) URL wird relativ zur Basis von `urlMd`
 Jede URL, die mit einem *Slash* `/` beginnt ist relativ zur dizmo Basis: So können Assets, welche im dizmo eingebettet sind, geholt werden. Um z.B. das eingebettete `md-logo.svg` Bild zu referenzieren:
 
 
-    /bundles/com.dizmo.markdownreader/assets/img/md-logo.svg
+    /bundles/com.dizmo.markdownreader_ng/assets/img/md-logo.svg
 
 **Info:** Jedes HTML (oder CSS) Schnipsel kann frei mit dem MD Inhalt gemischt werden. Allerding sollte das so weit wie möglich vermieden werden und wir raten dazu, die native MD Schreibweise zu nutzen. Der `MarkdownReader` selbst nutzt einige wenige solche Schnipsel wie das `#pager` für die Weiter und Zurück Schaltflächen oder das `hooks.js` Script.
 
@@ -285,7 +285,7 @@ Wenn Sie den Flag `showBack` auf `false` setzen, wird das Drehen auf die Rückse
 
 <script>
 jQuery.get(
-    '/bundles/com.dizmo.markdownreader/assets/js/hooks.js'
+    '/bundles/com.dizmo.markdownreader_ng/assets/js/hooks.js'
 ).done(function (data) {
     eval(data); jQuery('#pager').trigger('turn:before', [0]);
 });
