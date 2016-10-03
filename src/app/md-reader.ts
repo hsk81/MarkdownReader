@@ -21,7 +21,6 @@ export class MdReader {
             });
         }
     }
-
 }
 
 export default MdReader;
