@@ -53,6 +53,12 @@ export class MdRenderer {
         };
     }
 
+    public get toHtml(): {
+        convert: (mdValue:string) => string;
+    } {
+        return MdRenderer.toHtml;
+    }
+
     public static resolve(href:string):string {
         if (!href.match(/^\//) && !href.match(/^[a-z]+:\/\//i)) {
             let tpl_md = dizmo.internal.get<string>('urlMd'),
@@ -63,6 +69,10 @@ export class MdRenderer {
         } else {
             return href;
         }
+    }
+
+    public resolve(href:string):string {
+        return MdRenderer.resolve(href);
     }
 }
 

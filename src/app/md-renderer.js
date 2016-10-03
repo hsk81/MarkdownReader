@@ -56,6 +56,13 @@ var MdRenderer = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdRenderer.prototype, "toHtml", {
+        get: function () {
+            return MdRenderer.toHtml;
+        },
+        enumerable: true,
+        configurable: true
+    });
     MdRenderer.resolve = function (href) {
         if (!href.match(/^\//) && !href.match(/^[a-z]+:\/\//i)) {
             var tpl_md = dizmo_1.default.internal.get('urlMd'), url_md = language_1.Language.template(tpl_md), idx_md = url_md.split('/').pop();
@@ -64,6 +71,9 @@ var MdRenderer = (function () {
         else {
             return href;
         }
+    };
+    MdRenderer.prototype.resolve = function (href) {
+        return MdRenderer.resolve(href);
     };
     MdRenderer = __decorate([
         trace_1.trace,
