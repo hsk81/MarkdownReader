@@ -4,8 +4,8 @@ import {named} from './sys/util/named';
 import {trace} from './sys/util/trace';
 
 @trace
-@named('Reader')
-export class Reader {
+@named('MdReader')
+export class MdReader {
     public constructor() {
         this.globals();
     }
@@ -24,4 +24,4 @@ export class Reader {
 
 }
 
-export default Reader;
+export default MdReader;

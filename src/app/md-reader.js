@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var window_1 = require('./sys/type/window');
 var named_1 = require('./sys/util/named');
 var trace_1 = require('./sys/util/trace');
-var Reader = (function () {
-    function Reader() {
+var MdReader = (function () {
+    function MdReader() {
         this.globals();
     }
-    Reader.prototype.globals = function () {
+    MdReader.prototype.globals = function () {
         var MarkdownReader = window_1.default.global('MarkdownReader');
         if (MarkdownReader === undefined) {
             window_1.default.global('MarkdownReader', {
@@ -26,14 +26,14 @@ var Reader = (function () {
             });
         }
     };
-    Reader = __decorate([
+    MdReader = __decorate([
         trace_1.trace,
-        named_1.named('Reader'), 
+        named_1.named('MdReader'), 
         __metadata('design:paramtypes', [])
-    ], Reader);
-    return Reader;
+    ], MdReader);
+    return MdReader;
 }());
-exports.Reader = Reader;
+exports.MdReader = MdReader;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Reader;
-//# sourceMappingURL=reader.js.map
+exports.default = MdReader;
+//# sourceMappingURL=md-reader.js.map

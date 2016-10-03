@@ -53,7 +53,7 @@ export class MdRenderer {
         };
     }
 
-    private static resolve(href:string):string {
+    public static resolve(href:string):string {
         if (!href.match(/^\//) && !href.match(/^[a-z]+:\/\//i)) {
             let tpl_md = dizmo.internal.get<string>('urlMd'),
                 url_md = Language.template(tpl_md) as string,

@@ -11,7 +11,7 @@ import {trace} from './sys/util/trace';
 import {I18N, TranslationFunction} from './i18n';
 import {ContentPanel} from './content-panel';
 import {TocPanel} from './toc-panel';
-import {Reader} from './reader';
+import {MdReader} from './md-reader';
 import {Dizmo} from './dizmo';
 import {Main} from './main';
 import {Pager} from './pager';
@@ -25,7 +25,7 @@ export class App {
     }
 
     private globals() {
-        window.global('READER', new Reader());
+        window.global('MD_READER', new MdReader());
         window.global('DIZMO', new Dizmo());
         window.global('EDITOR', new Editor());
         window.global('CONTENT_PANEL', new ContentPanel());
