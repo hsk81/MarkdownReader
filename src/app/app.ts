@@ -12,6 +12,7 @@ import {I18N, TranslationFunction} from './i18n';
 import {ContentPanel} from './content-panel';
 import {TocPanel} from './toc-panel';
 import {MdReader} from './md-reader';
+import {MdRenderer} from './md-renderer';
 import {Dizmo} from './dizmo';
 import {Main} from './main';
 import {Pager} from './pager';
@@ -25,6 +26,7 @@ export class App {
     }
 
     private globals() {
+        window.global('MD_RENDERER', new MdRenderer());
         window.global('MD_READER', new MdReader());
         window.global('DIZMO', new Dizmo());
         window.global('EDITOR', new Editor());

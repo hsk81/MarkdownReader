@@ -19,6 +19,7 @@ var i18n_1 = require('./i18n');
 var content_panel_1 = require('./content-panel');
 var toc_panel_1 = require('./toc-panel');
 var md_reader_1 = require('./md-reader');
+var md_renderer_1 = require('./md-renderer');
 var dizmo_2 = require('./dizmo');
 var main_1 = require('./main');
 var pager_1 = require('./pager');
@@ -28,6 +29,7 @@ var App = (function () {
         this.globals();
     }
     App.prototype.globals = function () {
+        window_1.default.global('MD_RENDERER', new md_renderer_1.MdRenderer());
         window_1.default.global('MD_READER', new md_reader_1.MdReader());
         window_1.default.global('DIZMO', new dizmo_2.Dizmo());
         window_1.default.global('EDITOR', new editor_1.Editor());
