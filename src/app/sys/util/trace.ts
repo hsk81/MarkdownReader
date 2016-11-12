@@ -2,6 +2,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+import bundle from '../type/bundle';
+import window from '../type/window';
+
 import './random';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -56,6 +59,9 @@ export function traceable(
 }
 
 function _traceable(flag:boolean):Function {
+    let do_trace = bundle.external.get('TRACE', {
+        fallback: window.global<boolean>('TRACE')
+    });
     return function (target:any, key:string, dtor?:PropertyDescriptor) {
         let wrap = (fn:Function, callback:Function) => {
             if (!flag) {
@@ -65,28 +71,32 @@ function _traceable(flag:boolean):Function {
                     (<any>fn)['_traced'] = true;
 
                     let tn:Function = function (...args:any[]) {
-                        let _named = target._named || '@',
-                            random = String.random(4, 16),
-                            dt_beg = new Date().toISOString();
+                        if (do_trace || window.global<boolean>('TRACE')) {
+                            let _named = target._named || '@',
+                                random = String.random(4, 16),
+                                dt_beg = new Date().toISOString();
 
-                        setTimeout(() => {
-                            console.log(
-                                `[${dt_beg}]#${random} >>> ${_named}.${key}`);
-                            console.log(
-                                `[${dt_beg}]#${random}`, args);
-                        }, 0);
+                            setTimeout(() => {
+                                console.log(
+                                    `[${dt_beg}]#${random} >>> ${_named}.${key}`);
+                                console.log(
+                                    `[${dt_beg}]#${random}`, args);
+                            }, 0);
 
-                        let result = fn.apply(this, args),
-                            dt_end = new Date().toISOString();
+                            let result = fn.apply(this, args),
+                                dt_end = new Date().toISOString();
 
-                        setTimeout(() => {
-                            console.log(
-                                `[${dt_end}]#${random} <<< ${_named}.${key}`);
-                            console.log(
-                                `[${dt_end}]#${random}`, result);
-                        }, 0);
+                            setTimeout(() => {
+                                console.log(
+                                    `[${dt_end}]#${random} <<< ${_named}.${key}`);
+                                console.log(
+                                    `[${dt_end}]#${random}`, result);
+                            }, 0);
 
-                        return result;
+                            return result;
+                        } else {
+                            return fn.apply(this, args);
+                        }
                     };
                     for (let el in fn) {
                         if (fn.hasOwnProperty(el)) {
