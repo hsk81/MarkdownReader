@@ -59,7 +59,7 @@ export function traceable(
 }
 
 function _traceable(flag:boolean):Function {
-    let do_trace = bundle.external.get('TRACE', {
+    let f0 = bundle.external.get('TRACE', {
         fallback: window.global<boolean>('TRACE')
     });
     return function (target:any, key:string, dtor?:PropertyDescriptor) {
@@ -71,7 +71,8 @@ function _traceable(flag:boolean):Function {
                     (<any>fn)['_traced'] = true;
 
                     let tn:Function = function (...args:any[]) {
-                        if (do_trace || window.global<boolean>('TRACE')) {
+                        let f1 = window.global<boolean>('TRACE');
+                        if (f0 !== false && f1 !== false && (f0 || f1)) {
                             let _named = target._named || '@',
                                 random = String.random(4, 16),
                                 dt_beg = new Date().toISOString();

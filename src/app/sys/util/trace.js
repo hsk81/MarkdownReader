@@ -40,7 +40,7 @@ function traceable(arg, key, dtor) {
 }
 exports.traceable = traceable;
 function _traceable(flag) {
-    var do_trace = bundle_1.default.external.get('TRACE', {
+    var f0 = bundle_1.default.external.get('TRACE', {
         fallback: window_1.default.global('TRACE')
     });
     return function (target, key, dtor) {
@@ -56,7 +56,8 @@ function _traceable(flag) {
                         for (var _i = 0; _i < arguments.length; _i++) {
                             args[_i - 0] = arguments[_i];
                         }
-                        if (do_trace || window_1.default.global('TRACE')) {
+                        var f1 = window_1.default.global('TRACE');
+                        if (f0 !== false && f1 !== false && (f0 || f1)) {
                             var _named_1 = target._named || '@', random_1 = String.random(4, 16), dt_beg_1 = new Date().toISOString();
                             setTimeout(function () {
                                 console.log("[" + dt_beg_1 + "]#" + random_1 + " >>> " + _named_1 + "." + key);
