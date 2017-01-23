@@ -17,6 +17,9 @@ declare let DizmoElements:any;
 @named('TocPanel')
 export class TocPanel {
     private _scroller = new Scroller('scroll2', '#md-toc-items-wrap');
+    private _menu_hide:Function = null;
+    private _menu_show:Function = null;
+    private _menu_id:string = null;
 
     public constructor() {
         this.events();
@@ -44,19 +47,30 @@ export class TocPanel {
             }
         }
 
-        if (this.flag !== null) {
-            dizmo.addMenuItem(
-                '/style/image/toc.svg', this.T('#dizmo/menu/toc'), () => {
-                    if ($('#front').css('display') !== 'none') {
-                        if (this.flag !== true) {
-                            this.show(opts);
-                        } else {
-                            this.hide(opts);
+        this._menu_hide = () => {
+            if (this._menu_id) {
+                dizmo.removeMenuItem(this._menu_id);
+                this._menu_id = null;
+            }
+        };
+        this._menu_show = () => {
+            if (this._menu_id === null) {
+                this._menu_id = dizmo.addMenuItem(
+                    '/style/image/toc.svg', this.T('#dizmo/menu/toc'), () => {
+                        if ($('#front').css('display') !== 'none') {
+                            if (this.flag !== true) {
+                                this.show(opts);
+                            } else {
+                                this.hide(opts);
+                            }
+                            this.flag = !this.flag;
                         }
-                        this.flag = !this.flag;
                     }
-                }
-            );
+                );
+            }
+        };
+        if (this.flag !== null) {
+            this._menu_show();
         }
 
         let $toc_home = $('#md-toc-home');
@@ -64,7 +78,6 @@ export class TocPanel {
             this.pager.showPage(function (p:number, ps:number, go:Function) {
                 go.call(this, 0);
             });
-
             this.highlight($('.md-toc-item:first-of-type'));
         });
 
@@ -84,7 +97,6 @@ export class TocPanel {
                 $('.md-toc-item:has(p:not(:empty))').each(function () {
                     $(this).show();
                 });
-
                 $('#md-toc-search').val('');
             } else {
                 let rx = new RegExp($('#md-toc-search').val(), 'i');
@@ -101,7 +113,6 @@ export class TocPanel {
                         $item.show();
                     }
                 });
-
                 if (this.scroll !== undefined) {
                     this.scroll.refresh();
                 }
@@ -118,6 +129,18 @@ export class TocPanel {
         this.highlight($tocItems.first());
         if (this.flag) {
             this.show(opts);
+        }
+    }
+
+    public hideMenu() {
+        if (this._menu_hide) {
+            this._menu_hide();
+        }
+    }
+
+    public showMenu() {
+        if (this._menu_show) {
+            this._menu_show();
         }
     }
 
@@ -222,18 +245,15 @@ export class TocPanel {
                     default:
                         $header = $el.prevAll('h3:first');
                 }
-
                 if ($pager.length > 0) {
                     this.pager.showPage(function (p:number, ps:number, go:Function) {
                         let new_page = $content.find('>h3').index($header);
                         go.call(this, new_page, p);
                     });
                 }
-
                 $content.animate({
                     scrollTop: $el.offset().top
                 }, 375);
-
                 this.highlight($(ev.target).parent());
             }
         }

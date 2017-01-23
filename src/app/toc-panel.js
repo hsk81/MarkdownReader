@@ -18,6 +18,9 @@ var scoller_1 = require('./scoller');
 var TocPanel = (function () {
     function TocPanel() {
         this._scroller = new scoller_1.Scroller('scroll2', '#md-toc-items-wrap');
+        this._menu_hide = null;
+        this._menu_show = null;
+        this._menu_id = null;
         this.events();
     }
     TocPanel.prototype.init = function (opts) {
@@ -37,18 +40,29 @@ var TocPanel = (function () {
                     break;
             }
         }
+        this._menu_hide = function () {
+            if (_this._menu_id) {
+                dizmo_1.default.removeMenuItem(_this._menu_id);
+                _this._menu_id = null;
+            }
+        };
+        this._menu_show = function () {
+            if (_this._menu_id === null) {
+                _this._menu_id = dizmo_1.default.addMenuItem('/style/image/toc.svg', _this.T('#dizmo/menu/toc'), function () {
+                    if (window_2.$('#front').css('display') !== 'none') {
+                        if (_this.flag !== true) {
+                            _this.show(opts);
+                        }
+                        else {
+                            _this.hide(opts);
+                        }
+                        _this.flag = !_this.flag;
+                    }
+                });
+            }
+        };
         if (this.flag !== null) {
-            dizmo_1.default.addMenuItem('/style/image/toc.svg', this.T('#dizmo/menu/toc'), function () {
-                if (window_2.$('#front').css('display') !== 'none') {
-                    if (_this.flag !== true) {
-                        _this.show(opts);
-                    }
-                    else {
-                        _this.hide(opts);
-                    }
-                    _this.flag = !_this.flag;
-                }
-            });
+            this._menu_show();
         }
         var $toc_home = window_2.$('#md-toc-home');
         $toc_home.on('click', function () {
@@ -105,6 +119,16 @@ var TocPanel = (function () {
         this.highlight($tocItems.first());
         if (this.flag) {
             this.show(opts);
+        }
+    };
+    TocPanel.prototype.hideMenu = function () {
+        if (this._menu_hide) {
+            this._menu_hide();
+        }
+    };
+    TocPanel.prototype.showMenu = function () {
+        if (this._menu_show) {
+            this._menu_show();
         }
     };
     TocPanel.prototype.show = function (opts) {
