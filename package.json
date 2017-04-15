@@ -26,7 +26,6 @@
         "watchify": "^3.7.0"
     },
     "dizmo": {
-        "install-to": "",
         "settings": {
             "bundle-name": "Markdown Reader",
             "bundle-identifier": "com.dizmo.markdownreader_ng",
