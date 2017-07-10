@@ -1,17 +1,27 @@
-var pkg = require('../../package.js'),
-    lodash = require('lodash'),
+let pkg = require('../../package.js'),
+    fs = require('fs'),
     path = require('path');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_plist = require('gulp-plist'),
     gulp_rename = require('gulp-rename');
+let lodash = require('lodash'),
+    pump = require('pump');
 
-gulp.task('process-properties', function () {
-    var settings = lodash.mapKeys(pkg.dizmo.settings, function (value, key) {
-        return lodash.upperFirst(lodash.camelCase(key));
+gulp.task('process-properties', function (done) {
+    let settings = lodash.mapKeys(pkg.dizmo.settings, function (v, k) {
+        return lodash.upperFirst(lodash.camelCase(k));
     });
 
-    return gulp.src('.info.plist')
-        .pipe(gulp_plist(settings))
-        .pipe(gulp_rename('Info.plist'))
-        .pipe(gulp.dest(path.join('build', pkg.name)));
+    fs.stat('.info.plist', (err) => {
+        if (err === null) {
+            pump([
+                gulp.src('.info.plist'),
+                gulp_plist(settings),
+                gulp_rename('Info.plist'),
+                gulp.dest(path.join('build', pkg.name))
+            ], done);
+        } else {
+            this.emit('error', err);
+        }
+    });
 });

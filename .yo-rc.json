@@ -1,3 +1,5 @@
 {
-  "generator-dizmo": {}
+  "generator-dizmo": {
+    "domain": "com.dizmo"
+  }
 }

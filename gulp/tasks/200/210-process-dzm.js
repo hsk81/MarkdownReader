@@ -1,5 +1,5 @@
-var pkg = require('../../package.js');
-var gulp = require('gulp'),
+let pkg = require('../../package.js');
+let gulp = require('gulp'),
     gulp_ver = require('gulp-ver'),
     gulp_zip = require('gulp-zip');
 

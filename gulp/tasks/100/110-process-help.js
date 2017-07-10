@@ -1,7 +1,6 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     path = require('path');
-
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_zip = require('gulp-zip');
 
 gulp.task('process-help:zip', function () {
