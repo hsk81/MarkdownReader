@@ -13,6 +13,10 @@ export class Pager {
     private _page:number;
     private _scroller = new Scroller('scroll1', '#content-wrap');
 
+    public get scroller():Scroller {
+        return this._scroller;
+    }
+
     public constructor() {
         this.events();
     }
@@ -167,11 +171,6 @@ export class Pager {
                 }
             });
         }
-
-        $('#content').animate({
-            scrollTop: 0
-        }, 0);
-
         $(document).trigger('paged', {page: this.page});
         return false;
     }
@@ -189,11 +188,6 @@ export class Pager {
                 }
             });
         }
-
-        $('#content').animate({
-            scrollTop: 0
-        }, 0);
-
         $(document).trigger('paged', {page: this.page});
         return false;
     }
@@ -217,10 +211,6 @@ export class Pager {
         }
 
         return $(groups);
-    }
-
-    private get scroller():Scroller {
-        return this._scroller;
     }
 
     private get page():number {

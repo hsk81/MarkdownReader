@@ -4,8 +4,11 @@
     },
 
     "scroll1": {
+        "fadeScrollbars": true,
+        "interactiveScrollbars": true,
         "mouseWheel": true,
-        "scrollbars": false
+        "scrollbars": "custom",
+        "shrinkScrollbars": "scale"
     },
 
     "scroll2": {

@@ -21,6 +21,13 @@ var Pager = (function () {
         this._scroller = new scoller_1.Scroller('scroll1', '#content-wrap');
         this.events();
     }
+    Object.defineProperty(Pager.prototype, "scroller", {
+        get: function () {
+            return this._scroller;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Pager.prototype.init = function () {
         var _this = this;
         var $pager = window_2.$('#pager');
@@ -146,9 +153,6 @@ var Pager = (function () {
                 }
             });
         }
-        window_2.$('#content').animate({
-            scrollTop: 0
-        }, 0);
         window_2.$(document).trigger('paged', { page: this.page });
         return false;
     };
@@ -165,9 +169,6 @@ var Pager = (function () {
                 }
             });
         }
-        window_2.$('#content').animate({
-            scrollTop: 0
-        }, 0);
         window_2.$(document).trigger('paged', { page: this.page });
         return false;
     };
@@ -187,13 +188,6 @@ var Pager = (function () {
         }
         return window_2.$(groups);
     };
-    Object.defineProperty(Pager.prototype, "scroller", {
-        get: function () {
-            return this._scroller;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(Pager.prototype, "page", {
         get: function () {
             return this._page;

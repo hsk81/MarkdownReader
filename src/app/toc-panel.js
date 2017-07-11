@@ -18,7 +18,7 @@ var color_1 = require("./color");
 var scoller_1 = require("./scoller");
 var TocPanel = (function () {
     function TocPanel() {
-        this._scroller = new scoller_1.Scroller('scroll2', '#md-toc-items-wrap');
+        this._scroller2 = new scoller_1.Scroller('scroll2', '#md-toc-items-wrap');
         this._menu_hide = null;
         this._menu_show = null;
         this._menu_id = null;
@@ -180,7 +180,7 @@ var TocPanel = (function () {
     });
     Object.defineProperty(TocPanel.prototype, "scroller", {
         get: function () {
-            return this._scroller;
+            return this._scroller2;
         },
         enumerable: true,
         configurable: true
@@ -220,10 +220,8 @@ var TocPanel = (function () {
                         go.call(this, new_page, p);
                     });
                 }
-                $content.animate({
-                    scrollTop: $el.offset().top
-                }, 375);
                 this.highlight(window_2.$(ev.target).parent());
+                this.pager.scroller.to($el);
             }
         }
         return false;

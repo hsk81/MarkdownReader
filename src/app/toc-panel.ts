@@ -16,7 +16,7 @@ declare let DizmoElements:any;
 @trace
 @named('TocPanel')
 export class TocPanel {
-    private _scroller = new Scroller('scroll2', '#md-toc-items-wrap');
+    private _scroller2 = new Scroller('scroll2', '#md-toc-items-wrap');
     private _menu_hide:Function = null;
     private _menu_show:Function = null;
     private _menu_id:string = null;
@@ -205,7 +205,7 @@ export class TocPanel {
     }
 
     private get scroller():Scroller {
-        return this._scroller;
+        return this._scroller2;
     }
 
     private events() {
@@ -250,10 +250,8 @@ export class TocPanel {
                         go.call(this, new_page, p);
                     });
                 }
-                $content.animate({
-                    scrollTop: $el.offset().top
-                }, 375);
                 this.highlight($(ev.target).parent());
+                this.pager.scroller.to($el);
             }
         }
 
