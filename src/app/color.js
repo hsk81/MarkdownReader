@@ -5,11 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
+Object.defineProperty(exports, "__esModule", { value: true });
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
 var Color = (function () {
     function Color() {
     }
@@ -33,14 +31,12 @@ var Color = (function () {
         }
         return 'invert(0.0)';
     };
-    Color = __decorate([
-        trace_1.trace,
-        named_1.named('Color'), 
-        __metadata('design:paramtypes', [])
-    ], Color);
     return Color;
 }());
+Color = __decorate([
+    trace_1.trace,
+    named_1.named('Color')
+], Color);
 exports.Color = Color;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Color;
 //# sourceMappingURL=color.js.map

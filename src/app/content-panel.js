@@ -8,29 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var viewer_1 = require('./sys/type/viewer');
-var window_1 = require('./sys/type/window');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
-var color_1 = require('./color');
-var language_1 = require('./language');
-var md_renderer_1 = require('./md-renderer');
-var scoller_1 = require('./scoller');
+Object.defineProperty(exports, "__esModule", { value: true });
+var viewer_1 = require("./sys/type/viewer");
+var window_1 = require("./sys/type/window");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_2 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
+var color_1 = require("./color");
+var language_1 = require("./language");
+var md_renderer_1 = require("./md-renderer");
 var ContentPanel = (function () {
     function ContentPanel() {
-        this._scroller = new scoller_1.Scroller('scroll1', '#content-wrap');
         this.members();
         this.events();
     }
-    Object.defineProperty(ContentPanel.prototype, "scroller", {
-        get: function () {
-            return this._scroller;
-        },
-        enumerable: true,
-        configurable: true
-    });
     ContentPanel.prototype.members = function () {
         if (this.urlMd) {
             window_2.$('#url-md').val(this.urlMd);
@@ -103,8 +95,6 @@ var ContentPanel = (function () {
                         _this.html(value);
                         _this.link();
                         _this.color();
-                        _this.scroller.refresh(true);
-                        _this.tocPanel.scroller.refresh(true);
                         _this.tocPanel.init(opts);
                         _this.pager.init();
                     },
@@ -223,14 +213,13 @@ var ContentPanel = (function () {
         enumerable: true,
         configurable: true
     });
-    ContentPanel = __decorate([
-        trace_1.trace,
-        named_1.named('ContentPanel'), 
-        __metadata('design:paramtypes', [])
-    ], ContentPanel);
     return ContentPanel;
 }());
+ContentPanel = __decorate([
+    trace_1.trace,
+    named_1.named('ContentPanel'),
+    __metadata("design:paramtypes", [])
+], ContentPanel);
 exports.ContentPanel = ContentPanel;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ContentPanel;
 //# sourceMappingURL=content-panel.js.map

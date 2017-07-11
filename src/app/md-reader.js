@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var window_1 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
 var MdReader = (function () {
     function MdReader() {
         this.globals();
@@ -26,14 +27,13 @@ var MdReader = (function () {
             });
         }
     };
-    MdReader = __decorate([
-        trace_1.trace,
-        named_1.named('MdReader'), 
-        __metadata('design:paramtypes', [])
-    ], MdReader);
     return MdReader;
 }());
+MdReader = __decorate([
+    trace_1.trace,
+    named_1.named('MdReader'),
+    __metadata("design:paramtypes", [])
+], MdReader);
 exports.MdReader = MdReader;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = MdReader;
 //# sourceMappingURL=md-reader.js.map

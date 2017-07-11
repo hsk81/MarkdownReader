@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var AssertException = (function () {
     function AssertException(message) {
         this.message = message;
@@ -16,6 +17,5 @@ function assert(expression, message) {
     return expression;
 }
 exports.assert = assert;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = assert;
 //# sourceMappingURL=assert.js.map

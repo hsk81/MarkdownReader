@@ -8,14 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var window_1 = require('./sys/type/window');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
-var color_1 = require('./color');
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_2 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
+var color_1 = require("./color");
+var scoller_1 = require("./scoller");
 var Pager = (function () {
     function Pager() {
+        this._scroller = new scoller_1.Scroller('scroll1', '#content-wrap');
         this.events();
     }
     Pager.prototype.init = function () {
@@ -41,6 +44,7 @@ var Pager = (function () {
                 go.call(this, 0);
             });
         }
+        this.scroller.refresh(true);
     };
     Pager.prototype.showPage = function (counter) {
         var $items = window_2.$('#content > *'), $pages = window_2.$('#content').find('> h3'), $pager = window_2.$('#pager');
@@ -76,7 +80,7 @@ var Pager = (function () {
             var head = function (h2s) {
                 return window_2.$(h2s).first('h2').nextUntil('h3').addBack();
             };
-            var i = 0, j = 0, flag = {};
+            var i = 0, j = 0, flag = {}, header;
             for (var page = 0; page < $pages.length; page++) {
                 if ($h2s[i].$h3s[j] === undefined) {
                     i += 1;
@@ -91,7 +95,7 @@ var Pager = (function () {
                         dizmo_1.default.setAttribute('settings/title', "" + h1_text);
                     }
                     flag[i] = true;
-                    head($h2s[i]).show();
+                    header = head($h2s[i]).show();
                     window_2.$($h2s[i].$h3s[j]).show();
                 }
                 else {
@@ -107,8 +111,9 @@ var Pager = (function () {
                     new_page, old_page, $pages.length
                 ]);
             }
-            if (this.scroll !== undefined) {
-                this.scroll.refresh();
+            this.scroller.refresh();
+            if (header) {
+                this.scroller.to(header);
             }
             this.page = new_page;
             return this.page;
@@ -182,6 +187,13 @@ var Pager = (function () {
         }
         return window_2.$(groups);
     };
+    Object.defineProperty(Pager.prototype, "scroller", {
+        get: function () {
+            return this._scroller;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Pager.prototype, "page", {
         get: function () {
             return this._page;
@@ -192,20 +204,19 @@ var Pager = (function () {
         enumerable: true,
         configurable: true
     });
-    __decorate([
-        trace_1.traceable(false), 
-        __metadata('design:type', Function), 
-        __metadata('design:paramtypes', [Object, Function]), 
-        __metadata('design:returntype', Object)
-    ], Pager.prototype, "group", null);
-    Pager = __decorate([
-        trace_1.trace,
-        named_1.named('Pager'), 
-        __metadata('design:paramtypes', [])
-    ], Pager);
     return Pager;
 }());
+__decorate([
+    trace_1.traceable(false),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Function]),
+    __metadata("design:returntype", Object)
+], Pager.prototype, "group", null);
+Pager = __decorate([
+    trace_1.trace,
+    named_1.named('Pager'),
+    __metadata("design:paramtypes", [])
+], Pager);
 exports.Pager = Pager;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Pager;
 //# sourceMappingURL=pager.js.map

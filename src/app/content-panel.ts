@@ -12,20 +12,13 @@ import {Language} from './language';
 import {MdRenderer} from './md-renderer';
 import {Pager} from './pager';
 import {TocPanel} from './toc-panel';
-import {Scroller} from './scoller';
 
 @trace
 @named('ContentPanel')
 export class ContentPanel {
-    private _scroller = new Scroller('scroll1', '#content-wrap');
-
     public constructor() {
         this.members();
         this.events();
-    }
-
-    public get scroller():Scroller {
-        return this._scroller;
     }
 
     private members() {
@@ -111,8 +104,6 @@ export class ContentPanel {
                         this.link();
                         this.color();
 
-                        this.scroller.refresh(true);
-                        this.tocPanel.scroller.refresh(true);
                         this.tocPanel.init(opts);
                         this.pager.init();
                     },

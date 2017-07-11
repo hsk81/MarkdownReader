@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var dizmo_1 = require('./sys/type/dizmo');
-var window_1 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
+Object.defineProperty(exports, "__esModule", { value: true });
+var dizmo_1 = require("./sys/type/dizmo");
+var window_1 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
 var Scroller = (function () {
     function Scroller(name, ref) {
         this._name = name;
@@ -66,14 +67,13 @@ var Scroller = (function () {
         enumerable: true,
         configurable: true
     });
-    Scroller = __decorate([
-        trace_1.trace,
-        named_1.named('Scroller'), 
-        __metadata('design:paramtypes', [String, String])
-    ], Scroller);
     return Scroller;
 }());
+Scroller = __decorate([
+    trace_1.trace,
+    named_1.named('Scroller'),
+    __metadata("design:paramtypes", [String, String])
+], Scroller);
 exports.Scroller = Scroller;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Scroller;
 //# sourceMappingURL=scoller.js.map

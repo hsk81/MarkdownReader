@@ -8,13 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var window_1 = require('./sys/type/window');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
-var color_1 = require('./color');
-var scoller_1 = require('./scoller');
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_2 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
+var color_1 = require("./color");
+var scoller_1 = require("./scoller");
 var TocPanel = (function () {
     function TocPanel() {
         this._scroller = new scoller_1.Scroller('scroll2', '#md-toc-items-wrap');
@@ -105,9 +106,7 @@ var TocPanel = (function () {
                         $item.show();
                     }
                 });
-                if (this.scroll !== undefined) {
-                    this.scroll.refresh();
-                }
+                this.scroller.refresh();
             }
         });
         var $tocItems = window_2.$('.md-toc-item');
@@ -120,6 +119,7 @@ var TocPanel = (function () {
         if (this.flag) {
             this.show(opts);
         }
+        this.scroller.refresh(true);
     };
     TocPanel.prototype.hideMenu = function () {
         if (this._menu_hide) {
@@ -259,14 +259,13 @@ var TocPanel = (function () {
         enumerable: true,
         configurable: true
     });
-    TocPanel = __decorate([
-        trace_1.trace,
-        named_1.named('TocPanel'), 
-        __metadata('design:paramtypes', [])
-    ], TocPanel);
     return TocPanel;
 }());
+TocPanel = __decorate([
+    trace_1.trace,
+    named_1.named('TocPanel'),
+    __metadata("design:paramtypes", [])
+], TocPanel);
 exports.TocPanel = TocPanel;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = TocPanel;
 //# sourceMappingURL=toc-panel.js.map

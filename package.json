@@ -30,7 +30,7 @@
   "dizmo": {
     "settings": {
       "bundle-name": "Markdown Reader",
-      "bundle-identifier": "com.dizmo.markdownreader_ng",
+      "bundle-identifier": "com.dizmo.markdownreader",
       "category": "tools",
       "elements-version": "1.0",
       "api-version": "1.3",
@@ -63,5 +63,5 @@
     "upload": "node ./gulp/scripts/upload.js",
     "watch": "node ./gulp/scripts/watch.js"
   },
-  "version": "2.0.44"
+  "version": "2.0.54"
 }

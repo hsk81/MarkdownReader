@@ -8,22 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var window_1 = require('./sys/type/window');
-var bundle_1 = require('./sys/type/bundle');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
-var after_1 = require('./sys/util/after');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
-var i18n_1 = require('./i18n');
-var content_panel_1 = require('./content-panel');
-var toc_panel_1 = require('./toc-panel');
-var md_reader_1 = require('./md-reader');
-var md_renderer_1 = require('./md-renderer');
-var dizmo_2 = require('./dizmo');
-var main_1 = require('./main');
-var pager_1 = require('./pager');
-var editor_1 = require('./editor');
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var bundle_1 = require("./sys/type/bundle");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_2 = require("./sys/type/window");
+var after_1 = require("./sys/util/after");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
+var i18n_1 = require("./i18n");
+var content_panel_1 = require("./content-panel");
+var toc_panel_1 = require("./toc-panel");
+var md_reader_1 = require("./md-reader");
+var md_renderer_1 = require("./md-renderer");
+var dizmo_2 = require("./dizmo");
+var main_1 = require("./main");
+var pager_1 = require("./pager");
+var editor_1 = require("./editor");
 var App = (function () {
     function App() {
         this.globals();
@@ -38,13 +39,13 @@ var App = (function () {
         window_1.default.global('PAGER', new pager_1.Pager());
         window_1.default.global('MAIN', new main_1.Main());
     };
-    App = __decorate([
-        trace_1.trace,
-        named_1.named('App'), 
-        __metadata('design:paramtypes', [])
-    ], App);
     return App;
 }());
+App = __decorate([
+    trace_1.trace,
+    named_1.named('App'),
+    __metadata("design:paramtypes", [])
+], App);
 exports.App = App;
 document.addEventListener('dizmoready', function () {
     if (window_1.default.global('I18N') === undefined) {
@@ -94,6 +95,5 @@ document.addEventListener('dizmoready', function () {
         })));
     }
 });
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = App;
 //# sourceMappingURL=app.js.map

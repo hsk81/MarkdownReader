@@ -5,11 +5,13 @@ import {$} from './sys/type/window';
 import {named} from './sys/util/named';
 import {trace, traceable} from './sys/util/trace';
 import {Color} from './color';
+import {Scroller} from './scoller';
 
 @trace
 @named('Pager')
 export class Pager {
     private _page:number;
+    private _scroller = new Scroller('scroll1', '#content-wrap');
 
     public constructor() {
         this.events();
@@ -41,6 +43,7 @@ export class Pager {
                 }
             );
         }
+        this.scroller.refresh(true);
     }
 
     public showPage(counter:Function) {
@@ -84,7 +87,7 @@ export class Pager {
                 return ($(h2s) as any).first('h2').nextUntil('h3').addBack();
             };
 
-            let i = 0, j = 0, flag:any = {};
+            let i = 0, j = 0, flag:any = {}, header;
             for (let page = 0; page < $pages.length; page++) {
                 if (($h2s[i] as any).$h3s[j] === undefined) {
                     i += 1; j = 0;
@@ -103,7 +106,7 @@ export class Pager {
                     }
 
                     flag[i] = true;
-                    head($h2s[i]).show();
+                    header = head($h2s[i]).show();
                     $(($h2s[i] as any).$h3s[j]).show();
                 } else {
                     if (!flag[i]) {
@@ -121,8 +124,9 @@ export class Pager {
                 ]);
             }
 
-            if (this.scroll !== undefined) {
-                this.scroll.refresh();
+            this.scroller.refresh();
+            if (header) {
+                this.scroller.to(header);
             }
 
             this.page = new_page;
@@ -213,6 +217,10 @@ export class Pager {
         }
 
         return $(groups);
+    }
+
+    private get scroller():Scroller {
+        return this._scroller;
     }
 
     private get page():number {

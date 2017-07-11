@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
+Object.defineProperty(exports, "__esModule", { value: true });
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
 var Editor = (function () {
     function Editor() {
         if (typeof CodeMirror !== 'undefined') {
@@ -84,14 +85,13 @@ var Editor = (function () {
         enumerable: true,
         configurable: true
     });
-    Editor = __decorate([
-        trace_1.trace,
-        named_1.named('Editor'), 
-        __metadata('design:paramtypes', [])
-    ], Editor);
     return Editor;
 }());
+Editor = __decorate([
+    trace_1.trace,
+    named_1.named('Editor'),
+    __metadata("design:paramtypes", [])
+], Editor);
 exports.Editor = Editor;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Editor;
 //# sourceMappingURL=editor.js.map

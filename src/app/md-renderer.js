@@ -5,16 +5,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var window_1 = require('./sys/type/window');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
-var language_1 = require('./language');
-var MdRenderer = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_2 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
+var language_1 = require("./language");
+var MdRenderer = MdRenderer_1 = (function () {
     function MdRenderer() {
     }
     Object.defineProperty(MdRenderer, "toHtml", {
@@ -58,7 +56,7 @@ var MdRenderer = (function () {
     });
     Object.defineProperty(MdRenderer.prototype, "toHtml", {
         get: function () {
-            return MdRenderer.toHtml;
+            return MdRenderer_1.toHtml;
         },
         enumerable: true,
         configurable: true
@@ -73,16 +71,15 @@ var MdRenderer = (function () {
         }
     };
     MdRenderer.prototype.resolve = function (href) {
-        return MdRenderer.resolve(href);
+        return MdRenderer_1.resolve(href);
     };
-    MdRenderer = __decorate([
-        trace_1.trace,
-        named_1.named('MdRenderer'), 
-        __metadata('design:paramtypes', [])
-    ], MdRenderer);
     return MdRenderer;
 }());
+MdRenderer = MdRenderer_1 = __decorate([
+    trace_1.trace,
+    named_1.named('MdRenderer')
+], MdRenderer);
 exports.MdRenderer = MdRenderer;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = MdRenderer;
+var MdRenderer_1;
 //# sourceMappingURL=md-renderer.js.map

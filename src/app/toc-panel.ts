@@ -113,9 +113,7 @@ export class TocPanel {
                         $item.show();
                     }
                 });
-                if (this.scroll !== undefined) {
-                    this.scroll.refresh();
-                }
+                this.scroller.refresh();
             }
         });
 
@@ -130,6 +128,7 @@ export class TocPanel {
         if (this.flag) {
             this.show(opts);
         }
+        this.scroller.refresh(true);
     }
 
     public hideMenu() {
@@ -205,7 +204,7 @@ export class TocPanel {
         return this.flag;
     }
 
-    public get scroller():Scroller {
+    private get scroller():Scroller {
         return this._scroller;
     }
 

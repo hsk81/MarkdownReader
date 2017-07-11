@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var window_1 = require('./sys/type/window');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_2 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_2 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
 var Main = (function () {
     function Main() {
         this.events();
@@ -45,14 +46,13 @@ var Main = (function () {
         enumerable: true,
         configurable: true
     });
-    Main = __decorate([
-        trace_1.trace,
-        named_1.named('Main'), 
-        __metadata('design:paramtypes', [])
-    ], Main);
     return Main;
 }());
+Main = __decorate([
+    trace_1.trace,
+    named_1.named('Main'),
+    __metadata("design:paramtypes", [])
+], Main);
 exports.Main = Main;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Main;
 //# sourceMappingURL=main.js.map

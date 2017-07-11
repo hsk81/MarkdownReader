@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var viewer_1 = require('./sys/type/viewer');
-var dizmo_1 = require('./sys/type/dizmo');
-var window_1 = require('./sys/type/window');
-var trace_1 = require('./sys/util/trace');
-var named_1 = require('./sys/util/named');
+Object.defineProperty(exports, "__esModule", { value: true });
+var viewer_1 = require("./sys/type/viewer");
+var dizmo_1 = require("./sys/type/dizmo");
+var window_1 = require("./sys/type/window");
+var trace_1 = require("./sys/util/trace");
+var named_1 = require("./sys/util/named");
 var Dizmo = (function () {
     function Dizmo() {
         this.attributes();
@@ -44,14 +45,13 @@ var Dizmo = (function () {
         enumerable: true,
         configurable: true
     });
-    Dizmo = __decorate([
-        trace_1.trace,
-        named_1.named('Dizmo'), 
-        __metadata('design:paramtypes', [])
-    ], Dizmo);
     return Dizmo;
 }());
+Dizmo = __decorate([
+    trace_1.trace,
+    named_1.named('Dizmo'),
+    __metadata("design:paramtypes", [])
+], Dizmo);
 exports.Dizmo = Dizmo;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Dizmo;
 //# sourceMappingURL=dizmo.js.map

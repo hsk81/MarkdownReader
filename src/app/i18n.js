@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var window_1 = require('./sys/type/window');
-var named_1 = require('./sys/util/named');
-var trace_1 = require('./sys/util/trace');
+Object.defineProperty(exports, "__esModule", { value: true });
+var window_1 = require("./sys/type/window");
+var named_1 = require("./sys/util/named");
+var trace_1 = require("./sys/util/trace");
 var I18N = (function () {
     function I18N(callback) {
         var _this = this;
@@ -42,14 +43,13 @@ var I18N = (function () {
         enumerable: true,
         configurable: true
     });
-    I18N = __decorate([
-        trace_1.trace,
-        named_1.named('I18N'), 
-        __metadata('design:paramtypes', [Function])
-    ], I18N);
     return I18N;
 }());
+I18N = __decorate([
+    trace_1.trace,
+    named_1.named('I18N'),
+    __metadata("design:paramtypes", [Function])
+], I18N);
 exports.I18N = I18N;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = I18N;
 //# sourceMappingURL=i18n.js.map

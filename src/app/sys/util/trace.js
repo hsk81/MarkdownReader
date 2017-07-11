@@ -1,10 +1,11 @@
+"use strict";
 /* tslint:disable:no-string-literal one-line no-console */
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-"use strict";
-var bundle_1 = require('../type/bundle');
-var window_1 = require('../type/window');
-require('./random');
+Object.defineProperty(exports, "__esModule", { value: true });
+var bundle_1 = require("../type/bundle");
+var window_1 = require("../type/window");
+require("./random");
 function trace(arg) {
     if (typeof arg === 'boolean') {
         return _trace(arg);
@@ -54,7 +55,7 @@ function _traceable(flag) {
                     var tn = function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i - 0] = arguments[_i];
+                            args[_i] = arguments[_i];
                         }
                         var f1 = window_1.default.global('TRACE');
                         if (f0 !== false && f1 !== false && (f0 || f1)) {
@@ -109,7 +110,8 @@ function _traceable(flag) {
         }
     };
 }
-Object.defineProperty(exports, "__esModule", { value: true });
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 exports.default = trace;
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
